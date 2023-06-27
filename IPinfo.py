@@ -1,24 +1,24 @@
 import requests
 
-def get_location(ip_address):
-    url = f"http://ip-api.com/json/{ip_address}"
+def localisation(IP):
+    url = f"http://ip-api.com/json/{IP}"
 
     response = requests.get(url)
     data = response.json()
 
-    if data["status"] == "fail":
-        return None  # Impossible de localiser l'adresse IP
+    if data["status"] == "échec":
+        return None 
 
     Pays = data["country"]
     Ville = data["city"]
     region = data["regionName"]
     isp = data["isp"]
 
-    location = f"IP: {ip_address}\nPays: {Pays}\nVille: {Ville}\nRegion: {region}\nOperateur: {isp}"
+    location = f"IP: {IP}\nPays: {Pays}\nVille: {Ville}\nRegion: {region}\nOperateur: {isp}"
     return location
 
-ip_address = input("Entrez l'addresse IP de votre victime : ")
-location = get_location(ip_address)
+IP = input("Entrez l'addresse IP de votre victime : ")
+location = localisation(IP)
 
 if location:
     print("Informations sur l'adresse IP de la victime :")
